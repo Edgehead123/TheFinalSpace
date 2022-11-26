@@ -43,7 +43,7 @@ const Character = () => {
   if (character && allQuotes.length === 0) {
     const test = quotes.filter((char) => char.by === character.name);
     if (test.length > 0) {
-      console.log("test", test);
+      // console.log("test", test);
       setAllQuotes(test);
     }
   }

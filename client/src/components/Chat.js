@@ -1,48 +1,48 @@
-import { useState } from "react";
 import styled from "styled-components";
-import io from "socket.io-client";
-import ChatRoom from "./ChatRoom";
+// import ChatRoom from "./ChatRoom";
+import { useNavigate } from "react-router-dom";
 
-const Chat = () => {
-  const [userName, setUserName] = useState("");
+const Chat = ({ username, setUsername, room, setRoom, socket }) => {
+  const navigate = useNavigate();
+  // const [userName, setUserName] = useState("");
 
-  const [room, setRoom] = useState("");
-  const [showChat, setShowChat] = useState(false);
+  // const [room, setRoom] = useState("");
+  // const [showChat, setShowChat] = useState(false);
 
-  const socket = io.connect("http://localhost:8000");
+  // const socket = io.connect("http://localhost:8000");
 
   const joinRoom = () => {
-    if (room !== "" && userName !== "") {
-      socket.emit("join_room", room);
-      setShowChat(true);
+    //check if username and room fields are filled
+    if (room !== '' && username !== '') {
+      //if yes emit a socket event to server
+      // socket.emit("join_room", room);
+      socket.emit('join_room', { username, room });
     }
+    navigate("/chatroom", { replace: true });
+    ///chatRoom ?
   };
   return (
     <StyledContainer>
-      {!showChat ? (
-        <StyledFormContainer>
-          <h1>{`<>DevRooms</>`}</h1>
-          <StyledInput
-            placeholder="Username..."
-            onChange={(e) => setUserName(e.target.value)}
+      <StyledFormContainer>
+        <h1>{`<>DevRooms</>`}</h1>
+        <StyledInput
+          placeholder="Username..."
+          onChange={(e) => setUsername(e.target.value)}
           />
 
-          <StyledSelect onChange={(e) => setRoom(e.target.value)}>
-            {/* I had put setUserName by accident */}
-            <option>-- Select Room --</option>
-            <option value="javascript">JavaScript</option>
-            <option value="node">Node</option>
-            <option value="express">Express</option>
-            <option value="react">React</option>
-          </StyledSelect>
-
-          <StyledButton style={{ width: "100%" }} onClick={joinRoom}>
-            Join Room
-          </StyledButton>
-        </StyledFormContainer>
-      ) : (
-        <ChatRoom socket={socket} userName={userName} room={room} />
-      )}
+        <StyledSelect onChange={(e) => setRoom(e.target.value)}>
+          
+          <option>-- Select Room --</option>
+          <option value="javascript">JavaScript</option>
+          <option value="node">Node</option>
+          <option value="express">Express</option>
+          <option value="react">React</option>
+        </StyledSelect>
+        {console.log("room", room)}
+        <StyledButton style={{ width: "100%" }} onClick={joinRoom}>
+          Join Room
+        </StyledButton>
+      </StyledFormContainer>
     </StyledContainer>
   );
 };
