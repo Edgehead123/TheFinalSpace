@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AllQuotes from "./AllQuotes";
 
-const Home = () => {
-    const [quotes, setQuotes] = useState(null);
-  
+const Home = () => {  
 
 return (
-    //!quotes? <div>loading</div>:
+    
     <Wrapper>
         <div>Home</div>
         <div>The Final Space:</div>
