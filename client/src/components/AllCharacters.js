@@ -31,7 +31,9 @@ return (
 {characters.map((character) => {
    return (
 <MapCard key={character.id}>
+  <Link to={`/characters/${character.id}`}>
 <img src={character.img_url} alt={character.name} />
+</Link>
      <p>{character.name}</p>
      </MapCard>
     )

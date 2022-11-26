@@ -8,14 +8,9 @@ const Character = () => {
   const { characterId } = useParams();
   const [character, setCharacter] = useState(null);
   //tryng to make a context to load the character specific quotes
-
   const [allQuotes, setAllQuotes] = useState([]);
   const [quoteIndex, setQuoteIndex] = useState(0);
-
-  // const [q, setQ] = useState("");
-  const [searchParam] = useState(["capital", "name"]);
-  //char.by , character.name?
-
+  
   // fetch for the all quotes. function to generate 1 random quotes is in return
 
   const { quotes } = useContext(CharContext);
@@ -36,39 +31,32 @@ const Character = () => {
         window.alert(error);
       });
   }, []);
-
+{//just comments
   // console.log("char", character);
   //there is data
   // console.log("quotes", quotes);
   //there is data
   // console.log("char", character.name);
   //there is data
-
-  // if(character) {
-  //   const test = quotes.filter((char) =>char.by === character.name);
-  //   console.log("test", test);
-  // }
+}
 
   if (character && allQuotes.length === 0) {
     const test = quotes.filter((char) => char.by === character.name);
     if (test.length > 0) {
-      // console.log(test);
+      console.log("test", test);
       setAllQuotes(test);
     }
   }
   
-  console.log(allQuotes);
-  {
+  {//just comments
     //   ideas to cross reference quotes:
     //   1 .. by in quote = id in characters. could work with params b/c involves the id
     //  2 .. name in characters = by in quote
     //  filter method. filter quotes via  by=character.name?
+    // console.log("allquotes",allQuotes);
+    //there is data
   }
-  {
-    // const result = item.filter(item => item.by=character.name)
-    // console.log("result",result);
-  }
-
+  
   const nextHandler = () => {
     if (quoteIndex === allQuotes.length - 1) {
       setQuoteIndex(0);
@@ -90,11 +78,11 @@ const Character = () => {
       <div>Origin: {character.origin}</div>
       <div>ID: {character.id}</div>
       <h1>Quote placeholder</h1>
+      
       {/* quote specific to that character */}
-
-      {allQuotes && quotes && (
-        
+       {allQuotes.length > 0 && ( 
         <CharCard>
+          {/* .length prevents bug where quote info would only render after a change on the page (*/}
           <h1>Quote</h1>
           <h3>By:{allQuotes[quoteIndex].by}</h3>
           <img
