@@ -10,6 +10,7 @@ import { CharContext } from "../CharContext";
 import io from "socket.io-client";
 import SignIn from "./SignIn";
 import Chat from "./Chat";
+import ChatRoom from "../pages/chat";
 
 const socket = io.connect("http://localhost:8000");
 
@@ -56,6 +57,7 @@ const App = () => {
           //passing these down so accessible in chatroom
            />}
         />
+        <Route path='/chatroom' element={<ChatRoom username={username} room={room} socket={socket} />} />
       </Routes>
     </BrowserRouter>
     
