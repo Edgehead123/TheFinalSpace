@@ -19,7 +19,7 @@ const App = () => {
   const { setQuotes } = useContext(CharContext);
 
   useEffect(() => {
-    fetch("/quotes/")
+    fetch("/quotes")
       .then((res) => res.json())
       .then((data) => {
         //   setQuotes(data));
