@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
+  const { isLoading, error, isAuthenticated } = useAuth0();
   return (
     <Wrapper>
       <Container>
         <Link to="/">Home</Link>
         <Link to="/characters">Characters</Link>
-        <Link to ="/chat">Chat</Link>
-        <Link to='/signin'>Log in</Link>
-        <Link to="/profile">Profile</Link>
+        { isAuthenticated ? <Link to ="/chat">Chat</Link> : <Link to='/signin'>Chat</Link>}
+        {isAuthenticated ? <Link to='/signin'>Log out</Link> : <Link to='/signin'>Log in</Link>}
+        { isAuthenticated ? <Link to="/profile">Profile</Link> : <Link to='/signin'>Profile</Link> }
       </Container>
     </Wrapper>
   );

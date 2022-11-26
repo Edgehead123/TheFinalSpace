@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ChatRoom = ({ userName, room, socket }) => {
+  //outbound message
   const [currentMessage, setCurrentMessage] = useState("");
-
+//message history
   const [messageList, setMessageList] = useState([]);
-
+//fxn that gets triggered everytime hit send. sends the mesage
   const sendMessage = async () => {
     if (currentMessage) {
       const messageData = {
@@ -19,7 +20,7 @@ const ChatRoom = ({ userName, room, socket }) => {
       setCurrentMessage("");
     }
   };
-
+//updates the chat history
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
