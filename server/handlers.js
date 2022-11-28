@@ -18,14 +18,14 @@ const sendResponse = (res, status, data, message = "no message included.") => {
 };
 
 //fxn to save chat hist to mongo
-const addMessage = async (message, username, room) => {
+const addMessage = async (message, username, room, __createdtime__) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
     const db = client.db("thefinalspace");
     return await db
       .collection(`${room}`)
-      .insertOne({ message, username, room });
+      .insertOne({ message, username, room, __createdtime__ });
   } catch (err) {
     console.error(err);
   } finally {

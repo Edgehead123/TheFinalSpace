@@ -25,12 +25,12 @@ const Messages = ({ socket }) => {
   useEffect(() => {
     // Last 100 messages sent in the chat room (fetched from the db in backend)
     socket.on("last_100_messages", (last100Messages) => {
-    //   console.log("Last 100 messages:", JSON.parse(last100Messages));
+      //   console.log("Last 100 messages:", JSON.parse(last100Messages));
       console.log("Last 100 messages:", last100Messages);
-    //   last100Messages = JSON.parse(last100Messages);
-    //when JSON.parse commented out, the chat hist renders, but they alls say invalid date
+      //   last100Messages = JSON.parse(last100Messages);
+      //when JSON.parse commented out, the chat hist renders, but they alls say invalid date
       // Sort these messages by __createdtime__
-      last100Messages = sortMessagesByDate(last100Messages);
+      //   last100Messages = sortMessagesByDate(last100Messages);
       //sortMessagesByDate does not seem to produce the invalid date error
       setMessagesReceived((state) => [...last100Messages, ...state]);
     });
@@ -63,7 +63,19 @@ const Messages = ({ socket }) => {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <StyledMeta>{msg.username}</StyledMeta>
             <StyledMeta>
+              {/* {formatDateFromTimestamp(msg.__createdtime__)} */}
+              {/* {msg.__createdtime__.length > 0?
+                  formatDateFromTimestamp(msg.__createdtime__)
+                  :
+                  ""
+              } */}
               {formatDateFromTimestamp(msg.__createdtime__)}
+              
+              {/* {console.log(
+                "timetest",
+                formatDateFromTimestamp(msg.__createdtime__)
+              )}
+              ; */}
             </StyledMeta>
           </div>
           <StyledMsgText>{msg.message}</StyledMsgText>
@@ -90,7 +102,7 @@ const StyledMessage = styled.div`
 
 const StyledMeta = styled.span`
   color: rgb(153, 217, 234);
-  font-size: 0.75rem;
+  font-size: 1rem;
 `;
 
 const StyledMsgText = styled.p`
