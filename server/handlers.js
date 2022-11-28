@@ -40,8 +40,8 @@ const getMessage = async (room) => {
   try{
 await client.connect();
 const db = client.db("thefinalspace");
-const messages = await db.collection(room).find().toArray();
-const messageHist = messages.map(({ message }) => {
+const messages = await db.collection(room).find({room}).toArray();
+const messageHist = messages.map(( message ) => {
   return message;
 });
 return messageHist;
