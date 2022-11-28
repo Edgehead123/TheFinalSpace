@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 const Chat = ({ username, setUsername, room, setRoom, socket }) => {
   const navigate = useNavigate();
   // const [userName, setUserName] = useState("");
-
   // const [room, setRoom] = useState("");
   // const [showChat, setShowChat] = useState(false);
 
@@ -38,7 +37,7 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
           <option value="express">Express</option>
           <option value="react">React</option>
         </StyledSelect>
-        {console.log("room", room)}
+        {/* {console.log("room", room)} */}
         <StyledButton style={{ width: "100%" }} onClick={joinRoom}>
           Join Room
         </StyledButton>

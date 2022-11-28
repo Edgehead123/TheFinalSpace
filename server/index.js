@@ -8,7 +8,7 @@ const app = express();
 const { Server } = require("socket.io");
 const port = 8000;
 
-const { MongoClient } = require("mongodb");
+const { MongoClient, Collection } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
@@ -25,10 +25,12 @@ const {
   getQuotes,
   getCharacter,
   addMessage,
+  getMessage,
 } = require("./handlers");
+const { response } = require("express");
 
 app.use(cors());
-var collection;
+
 const server = http.createServer(app);
 // const io = require("socket.io")(http);
 const io = new Server(server, {
@@ -49,6 +51,12 @@ io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
     const { username, room } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
+
+    getMessage(room).then((last100Messages) => {
+      console.log('latest messages', last100Messages);
+      socket.emit('last_100_messages', last100Messages);
+    })
+    .catch((err) => console.log(err));
 
     let __createdtime__ = Date.now(); // Current timestamp
     // Send message to all users currently in the room, apart from the user that just joined

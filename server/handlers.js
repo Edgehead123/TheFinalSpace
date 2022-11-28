@@ -23,9 +23,8 @@ const addMessage = async (message, username, room) => {
   try {
     await client.connect();
     const db = client.db("thefinalspace");
-    console.log("hello");
     return await db
-      .collection("messages")
+      .collection(`${room}`)
       .insertOne({ message, username, room });
   } catch (err) {
     console.error(err);
@@ -33,6 +32,24 @@ const addMessage = async (message, username, room) => {
     client.close();
   }
   //console.log("disconnected!");
+};
+
+//get chat hist for when first entering a room
+const getMessage = async (room) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try{
+await client.connect();
+const db = client.db("thefinalspace");
+const messages = await db.collection(room).find({room}).toArray();
+const messageHist = messages.map(({ message }) => {
+  return message;
+});
+return messageHist;
+  } catch (err) {
+    console.error(err);
+  } finally {
+    client.close();
+  }
 };
 
 //get character
@@ -79,5 +96,6 @@ module.exports = {
   getCharacter,
   getQuotes,
   addMessage,
-  // getCharacterQuotes
+  getMessage,
+  
 };
