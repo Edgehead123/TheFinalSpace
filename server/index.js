@@ -3,15 +3,34 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 const http = require("http");
+
 const app = express();
 const { Server } = require("socket.io");
 const port = 8000;
 
-const { getCharacters, getQuotes, getCharacter } = require("./handlers");
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
+const { MONGO_URI } = process.env;
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+// const client = new MongoClient(process.env["MONGO_URL"]) : from guide
+//replaced with the const client we used in other projects
+const client = new MongoClient(MONGO_URI, options);
+
+const {
+  getCharacters,
+  getQuotes,
+  getCharacter,
+  addMessage,
+} = require("./handlers");
 
 app.use(cors());
+var collection;
 const server = http.createServer(app);
-
+// const io = require("socket.io")(http);
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
@@ -20,7 +39,7 @@ const io = new Server(server, {
 });
 
 const CHAT_BOT = "ChatBot";
-let chatRoom = ''; // E.g. javascript, node,...
+let chatRoom = ""; // E.g. javascript, node,...
 let allUsers = []; // All users in current chat room
 
 // Listen for when the client connects via socket.io-client
@@ -38,8 +57,8 @@ io.on("connection", (socket) => {
       username: CHAT_BOT,
       __createdtime__,
     });
-     // Send welcome msg to user that just joined chat only
-     socket.emit('receive_message', {
+    // Send welcome msg to user that just joined chat only
+    socket.emit("receive_message", {
       message: `Welcome ${username}`,
       username: CHAT_BOT,
       __createdtime__,
@@ -48,10 +67,16 @@ io.on("connection", (socket) => {
     chatRoom = room;
     allUsers.push({ id: socket.id, username, room });
     chatRoomUsers = allUsers.filter((user) => user.room === room);
-    socket.to(room).emit('chatroom_users', chatRoomUsers);
-    socket.emit('chatroom_users', chatRoomUsers);
+    socket.to(room).emit("chatroom_users", chatRoomUsers);
+    socket.emit("chatroom_users", chatRoomUsers);
   });
-  
+  socket.on("send_message", (data) => {
+    const { message, username, room, __createdtime__ } = data;
+    io.in(room).emit("receive_message", data); // Send to all users in room, including sender
+    addMessage(message, username, room, __createdtime__) // Save message in db
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  });
 });
 
 app.use(express.json());
