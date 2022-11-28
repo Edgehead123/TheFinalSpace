@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import RoomAndUsers from "./RoomAndUsers";
 import MessagesReceived from "./Messages";
 import SendMessages from "../Send-Messages";
 
 const ChatRoom = ({ username, room, socket }) => {
     return(
         <StyledChatContainer>
+            <RoomAndUsers socket={socket} username={username} room={room} />
 <div>
     <MessagesReceived socket={socket} />
     <SendMessages socket={socket} username={username} room={room} />

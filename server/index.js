@@ -26,6 +26,7 @@ const {
   getCharacter,
   addMessage,
   getMessage,
+  leaveRoom,
 } = require("./handlers");
 const { response } = require("express");
 
@@ -47,13 +48,17 @@ let allUsers = []; // All users in current chat room
 // Listen for when the client connects via socket.io-client
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
+
+ 
   // Add a user to a room
   socket.on("join_room", (data) => {
     const { username, room } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
 
+
+// Get last 100 messages sent in the chat room
     getMessage(room).then((last100Messages) => {
-      console.log('latest messages', last100Messages);
+      // console.log('latest messages', last100Messages);
       socket.emit('last_100_messages', last100Messages);
     })
     .catch((err) => console.log(err));
