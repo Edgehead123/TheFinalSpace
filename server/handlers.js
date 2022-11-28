@@ -87,6 +87,10 @@ const getCharacter = async (req, res) => {
     res.status(400).json({ status: 400, message: error });
   }
 };
+
+const leaveRoom = (userID, chatRoomUsers) => {
+  return chatRoomUsers.filter((user) => user.id != userID);
+}
 //get all quotes
 
 //get character quotes
@@ -97,5 +101,5 @@ module.exports = {
   getQuotes,
   addMessage,
   getMessage,
-  
+  leaveRoom,
 };

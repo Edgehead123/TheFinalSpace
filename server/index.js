@@ -49,7 +49,20 @@ let allUsers = []; // All users in current chat room
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
 
- 
+ socket.on('leave_room', (data) => {
+  const { username, room } = data;
+  socket.leave(room);
+  const __createdtime__ = Date.now();
+  //Remove user fromn memory
+  allUsers = leaveRoom(socket.id, allUsers);
+  socket.to(room).emit('chatroom_users', allUsers);
+  socket.to(room).emit('receive_message', {
+    username: CHAT_BOT,
+    message: `${username} has left the chat`,
+    __createdtime__,
+  })
+  console.log(`${username} has left the chat`);
+ })
   // Add a user to a room
   socket.on("join_room", (data) => {
     const { username, room } = data; // Data sent from client when join_room event emitted

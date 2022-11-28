@@ -26,7 +26,7 @@ const Messages = ({ socket }) => {
     // Last 100 messages sent in the chat room (fetched from the db in backend)
     socket.on("last_100_messages", (last100Messages) => {
       //   console.log("Last 100 messages:", JSON.parse(last100Messages));
-      console.log("Last 100 messages:", last100Messages);
+    //   console.log("Last 100 messages:", last100Messages);
       //   last100Messages = JSON.parse(last100Messages);
       //when JSON.parse commented out, the chat hist renders, but they alls say invalid date
       // Sort these messages by __createdtime__
