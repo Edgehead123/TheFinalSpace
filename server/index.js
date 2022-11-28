@@ -49,32 +49,43 @@ let allUsers = []; // All users in current chat room
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
 
- socket.on('leave_room', (data) => {
-  const { username, room } = data;
-  socket.leave(room);
-  const __createdtime__ = Date.now();
-  //Remove user fromn memory
-  allUsers = leaveRoom(socket.id, allUsers);
-  socket.to(room).emit('chatroom_users', allUsers);
-  socket.to(room).emit('receive_message', {
-    username: CHAT_BOT,
-    message: `${username} has left the chat`,
-    __createdtime__,
+  socket.on('disconnect', () => {
+    const user =allUsers.find((user) => user.id ==socket.id);
+    if (user?.username) {
+      allUsers = leaveRoom(socket.id, allUsers);
+      socket.to(chatRoom).emit('chatroom_users', allUsers);
+      socket.to(chatRoom).emit('receive_message', {
+        message: `${user.username} has disconnected from the chat.`,
+      })
+    }
   })
-  console.log(`${username} has left the chat`);
- })
+
+  socket.on("leave_room", (data) => {
+    const { username, room } = data;
+    socket.leave(room);
+    const __createdtime__ = Date.now();
+    //Remove user fromn memory
+    allUsers = leaveRoom(socket.id, allUsers);
+    socket.to(room).emit("chatroom_users", allUsers);
+    socket.to(room).emit("receive_message", {
+      username: CHAT_BOT,
+      message: `${username} has left the chat`,
+      __createdtime__,
+    });
+    console.log(`${username} has left the chat`);
+  });
   // Add a user to a room
   socket.on("join_room", (data) => {
     const { username, room } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
 
-
-// Get last 100 messages sent in the chat room
-    getMessage(room).then((last100Messages) => {
-      // console.log('latest messages', last100Messages);
-      socket.emit('last_100_messages', last100Messages);
-    })
-    .catch((err) => console.log(err));
+    // Get last 100 messages sent in the chat room
+    getMessage(room)
+      .then((last100Messages) => {
+        // console.log('latest messages', last100Messages);
+        socket.emit("last_100_messages", last100Messages);
+      })
+      .catch((err) => console.log(err));
 
     let __createdtime__ = Date.now(); // Current timestamp
     // Send message to all users currently in the room, apart from the user that just joined
