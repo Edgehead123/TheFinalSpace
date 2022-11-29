@@ -27,6 +27,8 @@ const {
   addMessage,
   getMessage,
   leaveRoom,
+  handleUser,
+  getUserHanlder,
 } = require("./handlers");
 const { response } = require("express");
 
@@ -49,16 +51,16 @@ let allUsers = []; // All users in current chat room
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
 
-  socket.on('disconnect', () => {
-    const user =allUsers.find((user) => user.id ==socket.id);
+  socket.on("disconnect", () => {
+    const user = allUsers.find((user) => user.id == socket.id);
     if (user?.username) {
       allUsers = leaveRoom(socket.id, allUsers);
-      socket.to(chatRoom).emit('chatroom_users', allUsers);
-      socket.to(chatRoom).emit('receive_message', {
+      socket.to(chatRoom).emit("chatroom_users", allUsers);
+      socket.to(chatRoom).emit("receive_message", {
         message: `${user.username} has disconnected from the chat.`,
-      })
+      });
     }
-  })
+  });
 
   socket.on("leave_room", (data) => {
     const { username, room } = data;
@@ -126,6 +128,10 @@ app.get("/characters", getCharacters);
 app.get(`/characters/:characterId`, getCharacter);
 app.get("/quotes", getQuotes);
 //////// show endpoints
+//adds user
+app.post("/user", handleUser);
+//gets user based on _id in mongo
+app.get("/user/:id", getUserHanlder);
 
 // this is our catch all endpoint.
 app.get("*", (req, res) => {

@@ -11,12 +11,13 @@ import io from "socket.io-client";
 import SignIn from "./SignIn";
 import Chat from "./Chat";
 import ChatRoom from "../pages/chat";
+import UsersProfile from "./UsersProfile";
 
 const socket = io.connect("http://localhost:8000");
 
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
+  const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
   const { setQuotes } = useContext(CharContext);
 
   useEffect(() => {
@@ -36,7 +37,6 @@ const App = () => {
   }, []);
   //put fetch here so that context can pass info to charQuotes
   return (
-    
     <BrowserRouter>
       <Header />
       <Routes>
@@ -45,22 +45,26 @@ const App = () => {
         <Route path="/characters/:characterId" element={<Character />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/users/:profileId" element={<UsersProfile />} />
         <Route
           path="/chat"
           element={
             <Chat
-          username={username}
-          setUsername={setUsername}
-          room={room}
-          setRoom={setRoom}
-          socket={socket}
-          //passing these down so accessible in chatroom
-           />}
+              username={username}
+              setUsername={setUsername}
+              room={room}
+              setRoom={setRoom}
+              socket={socket}
+              //passing these down so accessible in chatroom
+            />
+          }
         />
-        <Route path='/chatroom' element={<ChatRoom username={username} room={room} socket={socket} />} />
+        <Route
+          path="/chatroom"
+          element={<ChatRoom username={username} room={room} socket={socket} />}
+        />
       </Routes>
     </BrowserRouter>
-    
   );
 };
 
