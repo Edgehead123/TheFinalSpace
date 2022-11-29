@@ -1,9 +1,11 @@
 import styled from "styled-components";
 // import ChatRoom from "./ChatRoom";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Chat = ({ username, setUsername, room, setRoom, socket }) => {
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth0();
   // const [userName, setUserName] = useState("");
   // const [room, setRoom] = useState("");
   // const [showChat, setShowChat] = useState(false);
@@ -12,13 +14,15 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
 
   const joinRoom = () => {
     //check if username and room fields are filled
-    if (room !== '' && username !== '') {
+    if (room !== "" && username !== "") {
       //if yes emit a socket event to server
       // socket.emit("join_room", room);
-      socket.emit('join_room', { username, room });
+      socket.emit("join_room", { username, room });
     }
+    setUsername(user.nickname);
     navigate("/chatroom", { replace: true });
     ///chatRoom ?
+    console.log("username",user.nickname);
   };
   return (
     <StyledContainer>
@@ -30,7 +34,6 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
           />
 
         <StyledSelect onChange={(e) => setRoom(e.target.value)}>
-          
           <option>-- Select Room --</option>
           <option value="javascript">JavaScript</option>
           <option value="node">Node</option>

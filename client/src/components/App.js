@@ -13,7 +13,14 @@ import Chat from "./Chat";
 import ChatRoom from "../pages/chat";
 import UsersProfile from "./UsersProfile";
 
+
 const socket = io.connect("http://localhost:8000");
+const socketNames = io.connect("http://localhost:8000/users");
+
+
+socketNames.on("welcome", (msg) => {
+  console.log("received: ", msg);
+});
 
 const App = () => {
   const [username, setUsername] = useState("");

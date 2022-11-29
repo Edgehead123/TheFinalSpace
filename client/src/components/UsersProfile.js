@@ -10,7 +10,7 @@ const UsersProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         setUserData(data.data);
-        console.log("users", data.data);
+       // console.log("users", data.data);
       });
   }, []);
 

@@ -47,6 +47,11 @@ const CHAT_BOT = "ChatBot";
 let chatRoom = ""; // E.g. javascript, node,...
 let allUsers = []; // All users in current chat room
 
+io.of("/users").on("connection", (socket) => {
+  // console.log("new User");
+  socket.emit("welcome", "Hello and welcome to our space");
+});
+
 // Listen for when the client connects via socket.io-client
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
