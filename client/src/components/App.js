@@ -68,7 +68,7 @@ const App = () => {
         />
         <Route
           path="/chatroom"
-          element={<ChatRoom username={username} room={room} socket={socket} />}
+          element={<ChatRoom username={username} setUsername={setUsername} room={room} socket={socket} setRoom={setRoom} />}
         />
       </Routes>
     </BrowserRouter>

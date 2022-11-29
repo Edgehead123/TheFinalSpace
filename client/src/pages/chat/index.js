@@ -3,10 +3,10 @@ import RoomAndUsers from "./RoomAndUsers";
 import MessagesReceived from "./Messages";
 import SendMessages from "../Send-Messages";
 
-const ChatRoom = ({ username, room, socket }) => {
+const ChatRoom = ({ setUsername, username, room, setRoom, socket }) => {
     return(
         <StyledChatContainer>
-            <RoomAndUsers socket={socket} username={username} room={room} />
+            <RoomAndUsers socket={socket} setUsername={setUsername} username={username} room={room} setRoom={setRoom} />
 <div>
     <MessagesReceived socket={socket} />
     <SendMessages socket={socket} username={username} room={room} />

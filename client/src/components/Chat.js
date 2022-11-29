@@ -22,7 +22,7 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
     setUsername(user.nickname);
     navigate("/chatroom", { replace: true });
     ///chatRoom ?
-    console.log("username",user.nickname);
+    // console.log("username",user.nickname);
   };
   return (
     <StyledContainer>
@@ -35,6 +35,7 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
 
         <StyledSelect onChange={(e) => setRoom(e.target.value)}>
           <option>-- Select Room --</option>
+          <option value="general">general</option>
           <option value="javascript">JavaScript</option>
           <option value="node">Node</option>
           <option value="express">Express</option>

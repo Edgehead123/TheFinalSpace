@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 const UsersProfile = () => {
   const [userData, setUserData] = useState();
   const { profileId } = useParams();
+  const { user, isAuthenticated } = useAuth0();
+
   useEffect(() => {
     fetch(`/user/${profileId}`)
       .then((res) => res.json())
@@ -22,6 +24,10 @@ const UsersProfile = () => {
       {/* {userData?.picture && <img src={userData.picture} alt={userData?.name} />} */}
       <h2>{userData.name}</h2>
       {userData.picture && <img src={userData.picture} />}
+      <div>
+      Screen Name: {user?.nickname}
+      </div>
+      
       {/* <ul>
         {Object.keys(userData).map((objKey, i) => (
           <li key={i}>
