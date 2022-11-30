@@ -47,7 +47,7 @@ const AllQuotes = () => {
       <h3>By: {item.by}</h3>
       <img src={item.image} alt={item.by} />
 
-      <h3>{item.quote}</h3>
+      <h3>Quote: {item.quote}</h3>
     </Wrapper>
   );
 };

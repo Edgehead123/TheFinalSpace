@@ -9,18 +9,19 @@ import { useContext, useEffect, useState } from "react";
 import { CharContext } from "../CharContext";
 import io from "socket.io-client";
 import SignIn from "./SignIn";
-import Chat from "./ChatHomeloginstyle";
+import ChatHomeloginstyle from "./ChatHomeloginstyle";
+import ChatHomeMessageStyle from "./ChatHomeMessageStyle";
 import ChatRoom from "../pages/chat/ChatRoom";
 import UsersProfile from "./UsersProfile";
 
 
 const socket = io.connect("http://localhost:8000");
-const socketNames = io.connect("http://localhost:8000/users");
+// const socketNames = io.connect("http://localhost:8000/users");
 
 
-socketNames.on("welcome", (msg) => {
-  console.log("received: ", msg);
-});
+// socketNames.on("welcome", (msg) => {
+//   console.log("received: ", msg);
+// });
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -54,9 +55,22 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/users/:profileId" element={<UsersProfile />} />
         <Route
+          path="/chathome"
+          element={
+            <ChatHomeloginstyle
+              username={username}
+              setUsername={setUsername}
+              room={room}
+              setRoom={setRoom}
+              socket={socket}
+              //passing these down so accessible in chatroom
+            />
+          }
+        />
+        <Route
           path="/chat"
           element={
-            <Chat
+            <ChatHomeMessageStyle
               username={username}
               setUsername={setUsername}
               room={room}

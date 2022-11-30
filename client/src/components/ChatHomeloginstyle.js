@@ -19,7 +19,7 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
       // socket.emit("join_room", room);
       socket.emit("join_room", { username, room });
     }
-    setUsername(user.nickname);
+    // setUsername(user.nickname);
     navigate("/chatroom", { replace: true });
     ///chatRoom ?
     // console.log("username",user.nickname);

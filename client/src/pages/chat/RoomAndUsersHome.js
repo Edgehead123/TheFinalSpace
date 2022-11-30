@@ -1,45 +1,52 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
+const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
   const [roomUsers, setRoomUsers] = useState([]);
-  const [newRoom, setNewRoom] = useState("");
+  //   const [newRoom, setNewRoom] = useState("");
   const [prevRoom, setPrevRoom] = useState("");
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     socket.on("chatroom_users", (data) => {
       //console.log(data);
       setRoomUsers(data);
+      //   setUsername(user);
       setPrevRoom(room);
       setUsername(username);
     });
     return () => socket.off("chatroom_users");
   }, [socket]);
-
+  // console.log("prev", prevRoom);
   const leaveRoom = () => {
     const __createdtime__ = Date.now();
     socket.emit("leave_room", { username, room, __createdtime__ });
     //redirect to homepage
+
     navigate("/chathome", { replace: true });
   };
 
   const changeRoom = () => {
     const __createdtime__ = Date.now();
-    socket.emit("change_room", { username, room, __createdtime__ });
-
-    // socket.emit("join_room", { username, newRoom });
-socket.emit("join_room", { username, room });
-    navigate("/chat", { replace: true });
-    
+    socket.emit("leave_room", { username, room, __createdtime__ });
+    //   socket.emit("join_room", { username, newRoom });
+    socket.emit("join_room", { username, room });
     //redirect to homepage
+    navigate("/chatroom", { replace: true });
   };
-  // console.log("NR",newRoom);
+ 
 
   return (
     <StyledRoomAndUserColumn>
       <StyledRoomTitle>{prevRoom}</StyledRoomTitle>
+
+      {/* <StyledInput
+        placeholder="Username..."
+        onChange={(e) => setUsername(e.target.value)}
+      /> */}
 
       <div>
         <select onChange={(e) => setRoom(e.target.value)}>
@@ -106,4 +113,7 @@ const StyledLeave = styled.button`
   background: rgb(63, 73, 204);
 `;
 
-export default RoomAndUsers;
+const StyledInput = styled.input`
+  margin-top: 20px;
+`;
+export default RoomandUsersHome;

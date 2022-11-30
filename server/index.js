@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
 
   socket.on("leave_room", (data) => {
     const { username, room } = data;
-    socket.leave(room);
+    socket.leaveAll(room);
     const __createdtime__ = Date.now();
     //Remove user fromn memory
     allUsers = leaveRoom(socket.id, allUsers);
@@ -81,9 +81,27 @@ io.on("connection", (socket) => {
     });
     console.log(`${username} has left the chat`);
   });
+  ///TESTING: change room
+  // socket.on("change_room", (data) => {
+  //   const { username, room } = data;
+  //   socket.leaveAll(room);
+  //   const __createdtime__ = Date.now();
+  //   //Remove user fromn memory
+  //   allUsers = leaveRoom(socket.id, allUsers);
+  //   socket.to(room).emit("chatroom_users", allUsers);
+  //   socket.to(room).emit("receive_message", {
+  //     username: CHAT_BOT,
+  //     message: `${username} has left the chat`,
+  //     __createdtime__,
+  //   });
+  //   console.log(`${username} has left the chat`);
+
+  //   socket.join(newRoom); // Join the user to a socket room
+  // });
+  /// TESTING
   // Add a user to a room
   socket.on("join_room", (data) => {
-    const { username, room } = data; // Data sent from client when join_room event emitted
+    const { username, room, newRoom } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
 
     // Get last 100 messages sent in the chat room
