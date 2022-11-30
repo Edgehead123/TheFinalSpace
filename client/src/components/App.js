@@ -9,8 +9,8 @@ import { useContext, useEffect, useState } from "react";
 import { CharContext } from "../CharContext";
 import io from "socket.io-client";
 import SignIn from "./SignIn";
-import Chat from "./Chat";
-import ChatRoom from "../pages/chat";
+import Chat from "./ChatHomeloginstyle";
+import ChatRoom from "../pages/chat/ChatRoom";
 import UsersProfile from "./UsersProfile";
 
 

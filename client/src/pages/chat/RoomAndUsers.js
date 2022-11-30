@@ -29,20 +29,6 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
     navigate("/chatroom", { replace: true });
   };
 
-  // const joinRoom = () => {
-  //   //check if username and room fields are filled
-  //   // if (room !== "" && username !== "") {
-  //     //if yes emit a socket event to server
-  //     // socket.emit("join_room", room);
-  //     changeRoom();
-  //     socket.emit("join_room", { username, room });
-  //   // }
-
-  //   navigate("/chatroom", { replace: true });
-  //   ///chatRoom ?
-
-  // };
-
   return (
     <StyledRoomAndUserColumn>
       <StyledRoomTitle>{room}</StyledRoomTitle>
