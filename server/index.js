@@ -53,14 +53,14 @@ io.of("/users").on("connection", (socket) => {
 });
 
 ///1on1 code to auth user?///
-io.use((socket, next) => {
-  const username = socket.handshake.auth.username;
-  if (!username) {
-    return next(new Error("invalid username"));
-  }
-  socket.username = username;
-  next();
-});
+// io.use((socket, next) => {
+//   const username = socket.handshake.auth.username;
+//   if (!username) {
+//     return next(new Error("invalid username"));
+//   }
+//   socket.username = username;
+//   next();
+// });
 ///1on1 code to auth user?///
 
 // Listen for when the client connects via socket.io-client
@@ -92,7 +92,7 @@ io.on("connection", (socket) => {
     });
     console.log(`${username} has left the chat`);
   });
- 
+
   // Add a user to a room
   socket.on("join_room", (data) => {
     console.log(data);
@@ -122,7 +122,7 @@ io.on("connection", (socket) => {
     });
     // Save the new user to the room
     chatRoom = room;
-    allUsers.push({ id: socket.id, username, room , userId});
+    allUsers.push({ id: socket.id, username, room, userId });
     console.log(allUsers);
     chatRoomUsers = allUsers.filter((user) => user.room === room);
     socket.to(room).emit("chatroom_users", chatRoomUsers);

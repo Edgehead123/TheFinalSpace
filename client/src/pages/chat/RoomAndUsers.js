@@ -34,6 +34,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
     // socket.emit("join_room", { username, newRoom });
     console.log()
 socket.emit("join_room", { username, room , userId:currentUser._id });
+// socket.emit("join_room", { username, room  });
     navigate("/chat", { replace: true });
     
     //redirect to homepage

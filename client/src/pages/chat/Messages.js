@@ -30,7 +30,7 @@ const Messages = ({ socket }) => {
       //   last100Messages = JSON.parse(last100Messages);
       //when JSON.parse commented out, the chat hist renders, but they alls say invalid date
       // Sort these messages by __createdtime__
-      //   last100Messages = sortMessagesByDate(last100Messages);
+        last100Messages = sortMessagesByDate(last100Messages);
       //sortMessagesByDate does not seem to produce the invalid date error
       setMessagesReceived((state) => [...last100Messages, ...state]);
     });
