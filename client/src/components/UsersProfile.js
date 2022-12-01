@@ -5,29 +5,52 @@ import { useParams } from "react-router";
 const UsersProfile = () => {
   const [userData, setUserData] = useState();
   const { profileId } = useParams();
+
   const { user, isAuthenticated } = useAuth0();
+
+  const currentUser = JSON.parse(window.sessionStorage.getItem("user"));
 
   useEffect(() => {
     fetch(`/user/${profileId}`)
       .then((res) => res.json())
       .then((data) => {
         setUserData(data.data);
-       // console.log("users", data.data);
+        // console.log("users", data.data);
       });
   }, []);
 
   if (!userData) {
     return <h2>Loading ...</h2>;
   }
+
+  const addFriendHanlder = () => {
+    fetch(`/user/add-friend/${currentUser._id}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      //user trying to be added as friend, from body
+      body: JSON.stringify({
+        friendId: profileId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          window.alert("friend added !");
+        }
+      });
+  };
   return (
     <article>
       {/* {userData?.picture && <img src={userData.picture} alt={userData?.name} />} */}
       <h2>{userData.name}</h2>
       {userData.picture && <img src={userData.picture} />}
-      <div>
-      User: {userData?.nickname}
-      </div>
-      
+      <div>User: {userData?.nickname}</div>
+
+      <button onClick={addFriendHanlder}>Add Friend</button>
+
       {/* <ul>
         {Object.keys(userData).map((objKey, i) => (
           <li key={i}>

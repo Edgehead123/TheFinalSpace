@@ -35,8 +35,8 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
     const __createdtime__ = Date.now();
     socket.emit("leave_room", { username, room, __createdtime__ });
     //   socket.emit("join_room", { username, newRoom });
-    socket.emit("join_room", { username, room, userId:currentUser._id });
-    socket.emit("join_room", { username, room });
+    socket.emit("join_room", { username, room, userId: currentUser._id });
+    // socket.emit("join_room", { username, room });
     //redirect to homepage
     navigate("/chatroom", { replace: true });
   };
@@ -74,14 +74,15 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
               key={user.id}
               // onClick={() => navigate(`/users/${user.id}`)}
               // onClick={(e) => setRoom(e.target.innerText)}
-              
             >
               <div onClick={(e) => setRoom(e.target.value)}>
-              {user.username}
+                {user.username}{" "}
+                <span onClick={() => navigate(`/users/${user.userId}`)}>
+                  Profile
+                </span>
               </div>
               <button onClick={changeRoom}>Change</button>
               {console.log("room", room)}
-              
             </li>
           ))}
         </StyledUsersList>

@@ -7,7 +7,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
   const [roomUsers, setRoomUsers] = useState([]);
   const [newRoom, setNewRoom] = useState("");
   const [prevRoom, setPrevRoom] = useState("");
-  const {currentUser} = useContext(CharContext)
+  const { currentUser } = useContext(CharContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,14 +29,14 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
 
   const changeRoom = () => {
     const __createdtime__ = Date.now();
-    socket.emit("change_room", { username, room, __createdtime__ });
+    socket.emit("leave_room", { username, room, __createdtime__ });
 
     // socket.emit("join_room", { username, newRoom });
-    console.log()
-socket.emit("join_room", { username, room , userId:currentUser._id });
-// socket.emit("join_room", { username, room  });
+    console.log();
+    socket.emit("join_room", { username, room, userId: currentUser._id });
+    // socket.emit("join_room", { username, room  });
     navigate("/chat", { replace: true });
-    
+
     //redirect to homepage
   };
   // console.log("NR",newRoom);
@@ -47,7 +47,7 @@ socket.emit("join_room", { username, room , userId:currentUser._id });
 
       <div>
         <select onChange={(e) => setRoom(e.target.value)}>
-        <option>-- Select Room --</option>
+          <option>-- Select Room --</option>
           <option value="general">general</option>
           <option value="javascript">JavaScript</option>
           <option value="node">Node</option>
@@ -63,22 +63,25 @@ socket.emit("join_room", { username, room , userId:currentUser._id });
           {roomUsers.map((user) => (
             <li
               style={{
-                fontWeight: `${user.username === username ? "bold" : "normal"}`, cursor:"pointer"
+                fontWeight: `${user.username === username ? "bold" : "normal"}`,
+                cursor: "pointer",
               }}
               key={user.id}
               // onClick={() => navigate(`/users/${user.userId}`)}
               // onClick={(e) => setRoom(e.target.value)}
             >
-              <div onClick={(e) => 
-              setRoom(e.target.innerText)
-              // console.log("e", e.target.innerText)
-              }>
-                 
-             
-              {user.username}
-              
+              <div
+                onClick={
+                  (e) => setRoom(e.target.innerText)
+                  // console.log("e", e.target.innerText)
+                }
+              >
+                {user.username}{" "}
+                <span onClick={() => navigate(`/users/${user.userId}`)}>
+                  Profile
+                </span>
               </div>
-              
+
               <button onClick={changeRoom}>Change</button>
               {console.log("room", room)}
             </li>
@@ -86,7 +89,6 @@ socket.emit("join_room", { username, room , userId:currentUser._id });
         </StyledUsersList>
       </div>
       <StyledLeave onClick={leaveRoom}>Leave</StyledLeave>
-    
     </StyledRoomAndUserColumn>
   );
 };

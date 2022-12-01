@@ -29,6 +29,8 @@ const {
   leaveRoom,
   handleUser,
   getUserHanlder,
+  handleAddFriend,
+  handleGetFriends,
 } = require("./handlers");
 const { response } = require("express");
 
@@ -140,6 +142,8 @@ app.get("/quotes", getQuotes);
 app.post("/user", handleUser);
 //gets user based on _id in mongo
 app.get("/user/:id", getUserHanlder);
+app.post("/user/add-friend/:id", handleAddFriend);
+app.get("/user/get-friends/:id", handleGetFriends);
 
 // this is our catch all endpoint.
 app.get("*", (req, res) => {

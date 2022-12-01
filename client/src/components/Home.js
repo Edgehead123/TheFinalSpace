@@ -7,10 +7,10 @@ import { CharContext } from "../CharContext";
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
-  const {currentUser, setCurrentUser}= useContext(CharContext)
+  const { currentUser, setCurrentUser } = useContext(CharContext);
   useEffect(() => {
     if (isAuthenticated) {
-        //only posts to endpoint is isAuthenticated is true... adding new user
+      //only posts to endpoint is isAuthenticated is true... adding new user
       fetch("/user", {
         method: "POST",
         body: JSON.stringify(user),
@@ -19,8 +19,11 @@ const Home = () => {
           "Content-Type": "application/json",
         },
       })
-      .then(res=>res.json())
-      .then(data=> setCurrentUser(data.user))
+        .then((res) => res.json())
+        .then((data) => {
+          setCurrentUser(data.user);
+          window.sessionStorage.setItem("user", JSON.stringify(data.user));
+        });
     }
   }, [isAuthenticated]);
 
