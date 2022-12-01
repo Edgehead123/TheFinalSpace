@@ -52,17 +52,6 @@ io.of("/users").on("connection", (socket) => {
   socket.emit("welcome", "Hello and welcome to our space");
 });
 
-///1on1 code to auth user?///
-// io.use((socket, next) => {
-//   const username = socket.handshake.auth.username;
-//   if (!username) {
-//     return next(new Error("invalid username"));
-//   }
-//   socket.username = username;
-//   next();
-// });
-///1on1 code to auth user?///
-
 // Listen for when the client connects via socket.io-client
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
@@ -96,7 +85,7 @@ io.on("connection", (socket) => {
   // Add a user to a room
   socket.on("join_room", (data) => {
     console.log(data);
-    const { username, room, newRoom, userId } = data; // Data sent from client when join_room event emitted
+    const { username, room, userId } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
 
     // Get last 100 messages sent in the chat room

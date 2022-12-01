@@ -12,7 +12,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
 
   useEffect(() => {
     socket.on("chatroom_users", (data) => {
-      console.log(data);
+      // console.log(data);
       setRoomUsers(data);
       setPrevRoom(room);
       setUsername(username);
@@ -47,7 +47,7 @@ socket.emit("join_room", { username, room , userId:currentUser._id });
 
       <div>
         <select onChange={(e) => setRoom(e.target.value)}>
-          <option>-- Select Room --</option>
+        <option>-- Select Room --</option>
           <option value="general">general</option>
           <option value="javascript">JavaScript</option>
           <option value="node">Node</option>
@@ -66,14 +66,27 @@ socket.emit("join_room", { username, room , userId:currentUser._id });
                 fontWeight: `${user.username === username ? "bold" : "normal"}`, cursor:"pointer"
               }}
               key={user.id}
-              onClick={() => navigate(`/users/${user.userId}`)}
+              // onClick={() => navigate(`/users/${user.userId}`)}
+              // onClick={(e) => setRoom(e.target.value)}
             >
+              <div onClick={(e) => 
+              setRoom(e.target.innerText)
+              // console.log("e", e.target.innerText)
+              }>
+                 
+             
               {user.username}
+              
+              </div>
+              
+              <button onClick={changeRoom}>Change</button>
+              {console.log("room", room)}
             </li>
           ))}
         </StyledUsersList>
       </div>
       <StyledLeave onClick={leaveRoom}>Leave</StyledLeave>
+    
     </StyledRoomAndUserColumn>
   );
 };

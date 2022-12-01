@@ -72,10 +72,16 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
                 cursor: "pointer",
               }}
               key={user.id}
-              onClick={() => navigate(`/users/${user.id}`)}
+              // onClick={() => navigate(`/users/${user.id}`)}
+              // onClick={(e) => setRoom(e.target.innerText)}
+              
             >
-              {/* link here /users/ something.... */}
+              <div onClick={(e) => setRoom(e.target.value)}>
               {user.username}
+              </div>
+              <button onClick={changeRoom}>Change</button>
+              {console.log("room", room)}
+              
             </li>
           ))}
         </StyledUsersList>
