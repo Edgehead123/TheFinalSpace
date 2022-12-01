@@ -32,7 +32,7 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
       <StyledFormContainer>
         <h1>{`<>DevRooms</>`}</h1>
         <StyledInput
-          placeholder="Username..."
+          placeholder="Screen Name..."
           onChange={(e) => setUsername(e.target.value)}
           />
 

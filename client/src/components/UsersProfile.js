@@ -25,7 +25,7 @@ const UsersProfile = () => {
       <h2>{userData.name}</h2>
       {userData.picture && <img src={userData.picture} />}
       <div>
-      Screen Name: {userData?.nickname}
+      User: {userData?.nickname}
       </div>
       
       {/* <ul>
