@@ -2,10 +2,13 @@ import styled from "styled-components";
 // import ChatRoom from "./ChatRoom";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+import { CharContext } from "../CharContext";
 
 const Chat = ({ username, setUsername, room, setRoom, socket }) => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0();
+  const {currentUser} = useContext(CharContext)
   // const [userName, setUserName] = useState("");
   // const [room, setRoom] = useState("");
   // const [showChat, setShowChat] = useState(false);
@@ -17,7 +20,7 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
     if (room !== "" && username !== "") {
       //if yes emit a socket event to server
       // socket.emit("join_room", room);
-      socket.emit("join_room", { username, room });
+      socket.emit("join_room", { username, room , userId:currentUser._id});
     }
     // setUsername(user.nickname);
     navigate("/chatroom", { replace: true });

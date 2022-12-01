@@ -104,12 +104,13 @@ const handleUser = async (req, res) => {
     const existingUser = await db.collection("users").findOne({ email: email });
     if (existingUser) {
       return res
-        .status(300)
-        .json({ status: 200, message: "user alredy registered" });
+        .status(200)
+        .json({ status: 200, message: "user alredy registered" , user:existingUser});
     } else {
       //insertone user in mongodb
-      await db.collection("users").insertOne({ ...req.body, _id: uuidv4() });
-      return res.status(200).json({ status: 200, message: "user registered" });
+      const newUser={ ...req.body, _id: uuidv4() }
+      await db.collection("users").insertOne(newUser);
+      return res.status(200).json({ status: 200, user:newUser, message: "user registered" });
     }
   } catch (err) {
     console.error(err);

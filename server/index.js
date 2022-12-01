@@ -52,6 +52,17 @@ io.of("/users").on("connection", (socket) => {
   socket.emit("welcome", "Hello and welcome to our space");
 });
 
+///1on1 code to auth user?///
+io.use((socket, next) => {
+  const username = socket.handshake.auth.username;
+  if (!username) {
+    return next(new Error("invalid username"));
+  }
+  socket.username = username;
+  next();
+});
+///1on1 code to auth user?///
+
 // Listen for when the client connects via socket.io-client
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
@@ -81,27 +92,11 @@ io.on("connection", (socket) => {
     });
     console.log(`${username} has left the chat`);
   });
-  ///TESTING: change room
-  // socket.on("change_room", (data) => {
-  //   const { username, room } = data;
-  //   socket.leaveAll(room);
-  //   const __createdtime__ = Date.now();
-  //   //Remove user fromn memory
-  //   allUsers = leaveRoom(socket.id, allUsers);
-  //   socket.to(room).emit("chatroom_users", allUsers);
-  //   socket.to(room).emit("receive_message", {
-  //     username: CHAT_BOT,
-  //     message: `${username} has left the chat`,
-  //     __createdtime__,
-  //   });
-  //   console.log(`${username} has left the chat`);
-
-  //   socket.join(newRoom); // Join the user to a socket room
-  // });
-  /// TESTING
+ 
   // Add a user to a room
   socket.on("join_room", (data) => {
-    const { username, room, newRoom } = data; // Data sent from client when join_room event emitted
+    console.log(data);
+    const { username, room, newRoom, userId } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
 
     // Get last 100 messages sent in the chat room
@@ -127,7 +122,8 @@ io.on("connection", (socket) => {
     });
     // Save the new user to the room
     chatRoom = room;
-    allUsers.push({ id: socket.id, username, room });
+    allUsers.push({ id: socket.id, username, room , userId});
+    console.log(allUsers);
     chatRoomUsers = allUsers.filter((user) => user.room === room);
     socket.to(room).emit("chatroom_users", chatRoomUsers);
     socket.emit("chatroom_users", chatRoomUsers);

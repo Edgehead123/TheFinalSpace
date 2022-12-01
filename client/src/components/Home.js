@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AllQuotes from "./AllQuotes";
 import { useAuth0 } from "@auth0/auth0-react";
+import { CharContext } from "../CharContext";
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
+  const {currentUser, setCurrentUser}= useContext(CharContext)
   useEffect(() => {
     if (isAuthenticated) {
         //only posts to endpoint is isAuthenticated is true... adding new user
@@ -16,7 +18,9 @@ const Home = () => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      });
+      })
+      .then(res=>res.json())
+      .then(data=> setCurrentUser(data.user))
     }
   }, [isAuthenticated]);
 

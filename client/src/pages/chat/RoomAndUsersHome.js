@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { CharContext } from "../../CharContext";
 
 const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
   const [roomUsers, setRoomUsers] = useState([]);
@@ -9,6 +10,7 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
   const [prevRoom, setPrevRoom] = useState("");
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0();
+  const {currentUser} = useContext(CharContext)
 
   useEffect(() => {
     socket.on("chatroom_users", (data) => {
@@ -33,11 +35,10 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
     const __createdtime__ = Date.now();
     socket.emit("leave_room", { username, room, __createdtime__ });
     //   socket.emit("join_room", { username, newRoom });
-    socket.emit("join_room", { username, room });
+    socket.emit("join_room", { username, room, userId:currentUser._id });
     //redirect to homepage
     navigate("/chatroom", { replace: true });
   };
- 
 
   return (
     <StyledRoomAndUserColumn>
@@ -66,10 +67,12 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
           {roomUsers.map((user) => (
             <li
               style={{
-                fontWeight: `${user.username === username ? "bold" : "normal"}`,
+                fontWeight: `${user.username === username ? "bold" : "normal"}`, cursor:"pointer"
               }}
               key={user.id}
+              onClick={() => navigate(`/users/${user.id}`)}
             >
+              {/* link here /users/ something.... */}
               {user.username}
             </li>
           ))}
