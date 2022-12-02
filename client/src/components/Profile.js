@@ -9,11 +9,13 @@ const Profile = () => {
   const currentUser = JSON.parse(window.sessionStorage.getItem("user"));
 
   useEffect(() => {
-    fetch(`/user/get-friends/${currentUser._id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFriends(data.data);
-      });
+    if (isAuthenticated) {
+      fetch(`/user/get-friends/${currentUser._id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFriends(data.data);
+        });
+    }
   }, []);
 
   console.log("friends", friends);
