@@ -8,6 +8,7 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
   const [roomUsers, setRoomUsers] = useState([]);
   //   const [newRoom, setNewRoom] = useState("");
   const [prevRoom, setPrevRoom] = useState("");
+  const [nextRoom, setNextRoom] = useState("");
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0();
   const { currentUser } = useContext(CharContext);
@@ -35,15 +36,17 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
     const __createdtime__ = Date.now();
     socket.emit("leave_room", { username, room, __createdtime__ });
     //   socket.emit("join_room", { username, newRoom });
-    socket.emit("join_room", { username, room, userId: currentUser._id });
+    socket.emit("join_room", { username, room: nextRoom, userId: currentUser._id });
     // socket.emit("join_room", { username, room });
+    setRoom(nextRoom);
     //redirect to homepage
+    
     navigate("/chatroom", { replace: true });
   };
 
   return (
     <StyledRoomAndUserColumn>
-      <StyledRoomTitle>{prevRoom}</StyledRoomTitle>
+      <StyledRoomTitle>{room}</StyledRoomTitle>
 
       {/* <StyledInput
         placeholder="Username..."
@@ -51,7 +54,7 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
       /> */}
 
       <div>
-        <select onChange={(e) => setRoom(e.target.value)}>
+        <select onChange={(e) => setNextRoom(e.target.value)}>
           <option>-- Select Room --</option>
           <option value="general">general</option>
           <option value="javascript">JavaScript</option>

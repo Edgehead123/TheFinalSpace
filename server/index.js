@@ -70,10 +70,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("leave_room", (data) => {
-    const { username, room } = data;
+    const { username, room, __createdtime__ } = data;
     socket.leaveAll(room);
-    const __createdtime__ = Date.now();
+    // const __createdtime__ = Date.now();
     //Remove user fromn memory
+    console.log("leave room");
     allUsers = leaveRoom(socket.id, allUsers);
     socket.to(room).emit("chatroom_users", allUsers);
     socket.to(room).emit("receive_message", {

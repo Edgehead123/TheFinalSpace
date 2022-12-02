@@ -5,8 +5,8 @@ import { CharContext } from "../../CharContext";
 
 const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
   const [roomUsers, setRoomUsers] = useState([]);
-  const [newRoom, setNewRoom] = useState("");
   const [prevRoom, setPrevRoom] = useState("");
+  const [nextRoom, setNextRoom] = useState("");
   const { currentUser } = useContext(CharContext);
   const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
   }, [socket]);
 
   const leaveRoom = () => {
+    //experiment with removing __createdtime__
     const __createdtime__ = Date.now();
     socket.emit("leave_room", { username, room, __createdtime__ });
     //redirect to homepage
@@ -32,8 +33,13 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
     socket.emit("leave_room", { username, room, __createdtime__ });
 
     // socket.emit("join_room", { username, newRoom });
-    console.log();
-    socket.emit("join_room", { username, room, userId: currentUser._id });
+
+    socket.emit("join_room", {
+      username,
+      room: nextRoom,
+      userId: currentUser._id,
+    });
+    setRoom(nextRoom);
     // socket.emit("join_room", { username, room  });
     navigate("/chat", { replace: true });
 
@@ -43,10 +49,10 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
 
   return (
     <StyledRoomAndUserColumn>
-      <StyledRoomTitle>{prevRoom}</StyledRoomTitle>
+      <StyledRoomTitle>{room}</StyledRoomTitle>
 
       <div>
-        <select onChange={(e) => setRoom(e.target.value)}>
+        <select onChange={(e) => setNextRoom(e.target.value)}>
           <option>-- Select Room --</option>
           <option value="general">general</option>
           <option value="javascript">JavaScript</option>
