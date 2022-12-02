@@ -78,7 +78,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
             >
               <div
                 onClick={
-                  (e) => setRoom(e.target.innerText)
+                  (e) => setNextRoom(e.target.innerText)
                   // console.log("e", e.target.innerText)
                 }
               >

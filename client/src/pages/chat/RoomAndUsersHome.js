@@ -78,7 +78,7 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
               // onClick={() => navigate(`/users/${user.id}`)}
               // onClick={(e) => setRoom(e.target.innerText)}
             >
-              <div onClick={(e) => setRoom(e.target.value)}>
+              <div onClick={(e) => setNextRoom(e.target.value)}>
                 {user.username}{" "}
                 <span onClick={() => navigate(`/users/${user.userId}`)}>
                   Profile
