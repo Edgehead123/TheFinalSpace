@@ -31,6 +31,7 @@ const {
   getUserHanlder,
   handleAddFriend,
   handleGetFriends,
+  handleChat,
 } = require("./handlers");
 const { response } = require("express");
 
@@ -145,6 +146,7 @@ app.post("/user", handleUser);
 app.get("/user/:id", getUserHanlder);
 app.post("/user/add-friend/:id", handleAddFriend);
 app.get("/user/get-friends/:id", handleGetFriends);
+app.post("/user/chat", handleChat);
 
 // this is our catch all endpoint.
 app.get("*", (req, res) => {

@@ -7,7 +7,7 @@ import { CharContext } from "../CharContext";
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
-  const { currentUser, setCurrentUser } = useContext(CharContext);
+  const { setCurrentUser, isChatActive } = useContext(CharContext);
   useEffect(() => {
     if (isAuthenticated) {
       //only posts to endpoint is isAuthenticated is true... adding new user
@@ -25,7 +25,7 @@ const Home = () => {
           window.sessionStorage.setItem("user", JSON.stringify(data.user));
         });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isChatActive]);
 
   return (
     <Wrapper>

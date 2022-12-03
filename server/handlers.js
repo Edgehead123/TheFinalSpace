@@ -194,6 +194,32 @@ const handleGetFriends = async (req, res) => {
     client.close();
   }
 };
+const handleChat = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    await client.connect();
+    const db = client.db("thefinalspace");
+    const { currentUser, user } = req.body;
+    console.log("req", req.body);
+
+    await db
+      .collection("users")
+      .updateOne({ _id: currentUser }, { $set: { chat: [user] } });
+
+    await db
+      .collection("users")
+      .updateOne({ _id: user }, { $set: { chat: [currentUser] } });
+
+    res.status(200).json({ status: 200, message: "users added to chat" });
+
+    // filter the users that are friends with the cuurent user
+  } catch (err) {
+    console.error(err);
+  } finally {
+    client.close();
+  }
+};
 
 module.exports = {
   getCharacters,
@@ -206,4 +232,5 @@ module.exports = {
   getUserHanlder,
   handleAddFriend,
   handleGetFriends,
+  handleChat,
 };

@@ -7,7 +7,9 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
   const [roomUsers, setRoomUsers] = useState([]);
   const [prevRoom, setPrevRoom] = useState("");
   const [nextRoom, setNextRoom] = useState("");
-  const { currentUser } = useContext(CharContext);
+  const { currentUser, isChatActive, setIsChatActive } =
+    useContext(CharContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,10 +79,24 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
               // onClick={(e) => setRoom(e.target.value)}
             >
               <div
-                onClick={
-                  (e) => setNextRoom(e.target.innerText)
-                  // console.log("e", e.target.innerText)
-                }
+                onClick={(e) => {
+                  setIsChatActive(!isChatActive);
+                  fetch("/user/chat", {
+                    method: "POST",
+                    body: JSON.stringify({
+                      currentUser: currentUser._id,
+                      user: user.userId,
+                    }),
+                    headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json",
+                    },
+                  });
+
+                  const sharedRoomId = `${user.userId}${currentUser._id}`;
+                  // setNextRoom(e.target.value);
+                  setNextRoom(sharedRoomId);
+                }}
               >
                 {user.username}{" "}
                 <span onClick={() => navigate(`/users/${user.userId}`)}>
@@ -89,6 +105,17 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
               </div>
 
               <button onClick={changeRoom}>Change</button>
+              {currentUser.chat && user.username === username && (
+                <button
+                  onClick={() => {
+                    console.log("here");
+                    const sharedRoomId = `${currentUser.chat[0]}${currentUser._id}`;
+                    setNextRoom(sharedRoomId);
+                  }}
+                >
+                  Private
+                </button>
+              )}
               {console.log("room", room)}
             </li>
           ))}
