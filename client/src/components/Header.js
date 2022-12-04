@@ -30,7 +30,7 @@ const Header = () => {
 };
 
 const Container = styled.div`
-  border: 3px blue solid;
+  border: 3px purple solid;
   display: flex;
   flex-direction: row;
   width: 85vw;
@@ -40,22 +40,23 @@ const Container = styled.div`
   padding-bottom: 5px;
   padding-left: 2vw;
   padding-right: 2vw;
+  border-radius: 5px;
   a:link{
-    
+    border-radius: 5px;
     text-decoration: none;
     
     padding: 2px;
     background-color: yellow;
   }
   a:visited{
-    
+    border-radius: 5px;
     text-decoration: none;
     
     padding: 2px;
     background-color: yellow;
   }
   a:hover{
-    
+    border-radius: 5px;
     text-decoration: none;
     padding: 2px;
     background-color: yellow;
@@ -64,14 +65,12 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.header`
-  border: 3px green solid;
+  border: 3px purple solid;
   display: flex;
   justify-content: space-around;
   height: 5vh;
   background-color: yellow;
+  border-radius: 5px;
 `;
 
-const StyledLink =styled.link`
-
-`;
 export default Header;

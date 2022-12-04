@@ -19,7 +19,7 @@ const Profile = () => {
     }
   }, []);
 
-  console.log("friends", friends);
+  // console.log("friends", friends);
   return (
     isAuthenticated && (
       <StyledArticle>

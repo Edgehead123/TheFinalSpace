@@ -116,7 +116,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
                   Private
                 </button>
               )}
-              {console.log("room", room)}
+              {/* {console.log("room", room)} */}
             </li>
           ))}
         </StyledUsersList>

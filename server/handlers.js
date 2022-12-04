@@ -201,7 +201,7 @@ const handleChat = async (req, res) => {
     await client.connect();
     const db = client.db("thefinalspace");
     const { currentUser, user } = req.body;
-    console.log("req", req.body);
+    // console.log("req", req.body);
 
     await db
       .collection("users")
