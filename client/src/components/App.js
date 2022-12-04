@@ -14,15 +14,13 @@ import ChatHomeMessageStyle from "./ChatHomeMessageStyle";
 import ChatRoom from "../pages/chat/ChatRoom";
 import UsersProfile from "./UsersProfile";
 
-
 const socket = io.connect("http://localhost:8000");
-
 
 const App = () => {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const { setQuotes } = useContext(CharContext);
-
+//sets title in the browser tab
   useEffect(() => {
     document.title = "The Final Space"
   }, [])

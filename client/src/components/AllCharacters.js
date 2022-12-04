@@ -5,13 +5,12 @@ import { useEffect, useState } from "react";
 const AllCharacters = () => {
   const navigate = useNavigate();
   const [characters, setCharacters] = useState(null);
-  // fetch for the all quotes. function to generate 1 random quotes is in return
+  // fetch for the characters
   useEffect(() => {
     //limits to 11 of the characters
     fetch("/character/?limit=11")
       .then((res) => res.json())
       .then((data) => {
-        //   setQuotes(data));
         if (data.status === 400 || data.status === 500) {
           throw new Error(data.message);
         } else {

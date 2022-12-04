@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 
 const AllQuotes = () => {
   const [quotes, setQuotes] = useState([]);
-  // const [randArray, setRandArray] = useState([]);
-
   // fetch for the all quotes. function to generate 1 random quotes is in return
   useEffect(() => {
     fetch("/quotes")

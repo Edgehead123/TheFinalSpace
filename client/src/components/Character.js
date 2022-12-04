@@ -4,17 +4,14 @@ import { useContext, useEffect, useState } from "react";
 import { CharContext } from "../CharContext";
 
 const Character = () => {
-  //
   const { characterId } = useParams();
   const [character, setCharacter] = useState(null);
-  //tryng to make a context to load the character specific quotes
   const [allQuotes, setAllQuotes] = useState([]);
   const [quoteIndex, setQuoteIndex] = useState(0);
 
-  // fetch for the all quotes. function to generate 1 random quotes is in return
-
+// context to load the character specific quotes
   const { quotes } = useContext(CharContext);
-
+// fetch for the all quotes. function to generate 1 random quotes is in return
   useEffect(() => {
     fetch(`/characters/${characterId}`)
       //params with id
@@ -31,15 +28,7 @@ const Character = () => {
         window.alert(error);
       });
   }, []);
-  {
-    //just comments
-    // console.log("char", character);
-    //there is data
-    // console.log("quotes", quotes);
-    //there is data
-    // console.log("char", character.name);
-    //there is data
-  }
+
 
   if (character && allQuotes.length === 0) {
     const test = quotes.filter((char) => char.by === character.name);
@@ -47,16 +36,6 @@ const Character = () => {
       // console.log("test", test);
       setAllQuotes(test);
     }
-  }
-
-  {
-    //just comments
-    //   ideas to cross reference quotes:
-    //   1 .. by in quote = id in characters. could work with params b/c involves the id
-    //  2 .. name in characters = by in quote
-    //  filter method. filter quotes via  by=character.name?
-    // console.log("allquotes",allQuotes);
-    //there is data
   }
 
   const nextHandler = () => {
