@@ -36,6 +36,8 @@ const Container = styled.div`
   width: 95vw;
   justify-content: space-between;
   background-color: red;
+  align-items: center;
+  padding-bottom: 5px;
   div {
     background-color: yellow;
   }

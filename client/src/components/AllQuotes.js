@@ -22,43 +22,35 @@ const AllQuotes = () => {
         window.alert(error);
       });
   }, []);
-  //   console.log("quotes", quotes);
+ 
   //choose a random index in the quotes array
   const randomIndex = Math.floor(Math.random() * quotes.length);
-  // console.log(randomIndex);
+  
   //item is equal to index of quote as chosen by randomIndex
   const item = quotes[randomIndex];
 
-  // console.log("item", item);
-  // console.log("item", item);
+  
 
   return !item ? (
     <div>loading</div>
   ) : (
     <Wrapper>
-      <h1>Quote</h1>
-
-      {/* {quotes.map((quote) => {
-   return (
-<MapCard key={quote.id}>
-     <h2>{quote.quote}</h2>
-     </MapCard>)
-})} */}
+  
       <h3>By: {item.by}</h3>
       <img src={item.image} alt={item.by} />
-
-      <h3>Quote: {item.quote}</h3>
+      <h1>Quote</h1>
+      <h3> {item.quote}</h3>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  border: 2px solid red;
+  border: 10px solid red;
   margin: 0 auto;
-  width: max-content;
+  width: 75vw;
   padding: 0 10px;
   color: purple;
-  /* fontFamily: Verdana; */
+  
 `;
 const MapCard = styled.div`
   border: 2px solid green;
