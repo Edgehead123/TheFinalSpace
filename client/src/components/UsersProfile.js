@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -43,9 +44,9 @@ const UsersProfile = () => {
       });
   };
   return (
-    <article>
+    <StyledArticle>
       {/* {userData?.picture && <img src={userData.picture} alt={userData?.name} />} */}
-      <h2>{userData.name}</h2>
+      <h1>{userData.name}</h1>
       {userData.picture && <img src={userData.picture} />}
       <div>User: {userData?.nickname}</div>
 
@@ -58,9 +59,28 @@ const UsersProfile = () => {
           </li>
         ))}
       </ul> */}
-    </article>
+    </StyledArticle>
     //google article
   );
 };
+
+const StyledArticle=styled.article`
+/* border: 1px green solid; */
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 10vh;
+img {
+  width: 5vw;
+}
+h1 {
+  color: purple;
+}
+div {
+  color: purple;
+}
+
+`;
 
 export default UsersProfile;

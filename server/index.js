@@ -136,7 +136,7 @@ app.use(helmet());
 app.use(morgan("tiny"));
 
 //////// show endpoints
-app.get("/characters", getCharacters);
+app.get("/character", getCharacters);
 app.get(`/characters/:characterId`, getCharacter);
 app.get("/quotes", getQuotes);
 //////// show endpoints

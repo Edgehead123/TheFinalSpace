@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
@@ -21,14 +22,14 @@ const Profile = () => {
   console.log("friends", friends);
   return (
     isAuthenticated && (
-      <article>
+      <StyledArticle>
         {user?.picture && <img src={user.picture} alt={user?.name} />}
-        <h2>{user?.name}</h2>
+        <h1>{user?.name}</h1>
         <ul>
-          Screen Name: {user?.nickname}
+          User Name: {user?.nickname}
           {/* {Object.keys(user).map((objKey, i) => <li key={i}>{objKey}: {user[objKey]} </li>)} */}
         </ul>
-        <div>Fiends</div>
+        <h3>Friends</h3>
         {friends &&
           friends.map((friend) => {
             return (
@@ -38,10 +39,34 @@ const Profile = () => {
               </>
             );
           })}
-      </article>
+      </StyledArticle>
       //google article
     )
   );
 };
+
+const StyledArticle=styled.article`
+border: 1px green solid;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 10vh;
+img {
+  width: 5vw;
+}
+h1 {
+  color: purple;
+}
+h3 {
+  color: purple;
+}
+ul {
+  color: purple;
+}
+p {
+  color: purple;
+}
+`;
 
 export default Profile;

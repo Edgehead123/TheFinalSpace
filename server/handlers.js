@@ -56,7 +56,7 @@ const getMessage = async (room) => {
 const getCharacters = async (req, res) => {
   try {
     const characters = await request(
-      "https://finalspaceapi.com/api/v0/character"
+      "https://finalspaceapi.com/api/v0/character/?limit=11"
     );
     res.status(200).send(characters);
   } catch (error) {

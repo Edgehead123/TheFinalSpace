@@ -7,22 +7,22 @@ const Header = () => {
   return (
     <Wrapper>
       <Container>
-        <Link to="/">Home</Link>
-        <Link to="/characters">Characters</Link>
+        <NavLink to="/">HOME</NavLink>
+        <NavLink to="/characters">CHARACTERS</NavLink>
         {isAuthenticated ? (
-          <Link to="/chathome">Chat</Link>
+          <NavLink to="/chathome">CHAT</NavLink>
         ) : (
-          <Link to="/signin">Chat</Link>
+          <NavLink to="/signin">CHAT</NavLink>
         )}
         {isAuthenticated ? (
-          <Link to="/signin">Log out</Link>
+          <NavLink to="/signin">LOG OUT</NavLink>
         ) : (
-          <Link to="/signin">Log in</Link>
+          <NavLink to="/signin">LOG IN</NavLink>
         )}
         {isAuthenticated ? (
-          <Link to="/profile">Profile</Link>
+          <NavLink to="/profile">PROFILE</NavLink>
         ) : (
-          <Link to="/signin">Profile</Link>
+          <NavLink to="/signin">PROFILE</NavLink>
         )}
       </Container>
     </Wrapper>
@@ -30,24 +30,48 @@ const Header = () => {
 };
 
 const Container = styled.div`
-  /* border: 3px blue solid; */
+  border: 3px blue solid;
   display: flex;
   flex-direction: row;
-  width: 95vw;
+  width: 85vw;
   justify-content: space-between;
   background-color: red;
   align-items: center;
   padding-bottom: 5px;
-  div {
+  padding-left: 2vw;
+  padding-right: 2vw;
+  a:link{
+    
+    text-decoration: none;
+    
+    padding: 2px;
     background-color: yellow;
+  }
+  a:visited{
+    
+    text-decoration: none;
+    
+    padding: 2px;
+    background-color: yellow;
+  }
+  a:hover{
+    
+    text-decoration: none;
+    padding: 2px;
+    background-color: yellow;
+    
   }
 `;
 
 const Wrapper = styled.header`
-  /* border: 3px red solid; */
+  border: 3px green solid;
   display: flex;
   justify-content: space-around;
   height: 5vh;
   background-color: yellow;
+`;
+
+const StyledLink =styled.link`
+
 `;
 export default Header;

@@ -10,7 +10,7 @@ const Character = () => {
   //tryng to make a context to load the character specific quotes
   const [allQuotes, setAllQuotes] = useState([]);
   const [quoteIndex, setQuoteIndex] = useState(0);
-  
+
   // fetch for the all quotes. function to generate 1 random quotes is in return
 
   const { quotes } = useContext(CharContext);
@@ -31,14 +31,15 @@ const Character = () => {
         window.alert(error);
       });
   }, []);
-{//just comments
-  // console.log("char", character);
-  //there is data
-  // console.log("quotes", quotes);
-  //there is data
-  // console.log("char", character.name);
-  //there is data
-}
+  {
+    //just comments
+    // console.log("char", character);
+    //there is data
+    // console.log("quotes", quotes);
+    //there is data
+    // console.log("char", character.name);
+    //there is data
+  }
 
   if (character && allQuotes.length === 0) {
     const test = quotes.filter((char) => char.by === character.name);
@@ -47,8 +48,9 @@ const Character = () => {
       setAllQuotes(test);
     }
   }
-  
-  {//just comments
+
+  {
+    //just comments
     //   ideas to cross reference quotes:
     //   1 .. by in quote = id in characters. could work with params b/c involves the id
     //  2 .. name in characters = by in quote
@@ -56,7 +58,7 @@ const Character = () => {
     // console.log("allquotes",allQuotes);
     //there is data
   }
-  
+
   const nextHandler = () => {
     if (quoteIndex === allQuotes.length - 1) {
       setQuoteIndex(0);
@@ -69,26 +71,21 @@ const Character = () => {
     <div>loading</div>
   ) : (
     <Wrapper>
-      <h1>All Characters</h1>
+      <h1>Character:</h1>
       <img src={character.img_url} alt={character.name} />
       <div>Name: {character.name}</div>
       <div>Status: {character.status}</div>
       <div>Species: {character.species}</div>
       <div>Gender: {character.gender}</div>
       <div>Origin: {character.origin}</div>
-      <div>ID: {character.id}</div>
-      <h1>Quote placeholder</h1>
-      
+      {/* <div>ID: {character.id}</div> */}
+
       {/* quote specific to that character */}
-       {allQuotes.length > 0 && ( 
+      {allQuotes.length > 0 && (
         <CharCard>
           {/* .length prevents bug where quote info would only render after a change on the page (*/}
-          <h1>Quote</h1>
-          <h3>By:{allQuotes[quoteIndex].by}</h3>
-          <img
-            src={allQuotes[quoteIndex].image}
-            alt={allQuotes[quoteIndex].by}
-          />
+
+          <h1>Quote:</h1>
           <h3>{allQuotes[quoteIndex].quote}</h3>
         </CharCard>
       )}
@@ -99,24 +96,32 @@ const Character = () => {
 };
 
 const CharCard = styled.div`
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin: 0 auto;
-  width: max-content;
-  padding: 0 10px;
+  width: 48vw;
   color: purple;
-  /* fontFamily: Verdana; */
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  
 `;
 
 const Wrapper = styled.div`
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin: 0 auto;
-  width: max-content;
-  padding: 0 10px;
+  width: 50vw;
   color: purple;
-  /* fontFamily: Verdana; */
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  div{
+    font-size: larger;
+  }
 `;
 const MapCard = styled.div`
-  border: 2px solid green;
+  /* border: 2px solid green; */
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
   padding: 12px;
   margin-bottom: 10px;

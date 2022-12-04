@@ -24,6 +24,10 @@ const App = () => {
   const { setQuotes } = useContext(CharContext);
 
   useEffect(() => {
+    document.title = "The Final Space"
+  }, [])
+
+  useEffect(() => {
     fetch("/quotes")
       .then((res) => res.json())
       .then((data) => {

@@ -45,16 +45,13 @@ const AllQuotes = () => {
 };
 
 const Wrapper = styled.div`
-  border: 10px solid red;
   margin: 0 auto;
   width: 75vw;
   padding: 0 10px;
   color: purple;
-  
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
 `;
 const MapCard = styled.div`
-  border: 2px solid green;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
   padding: 12px;
   margin-bottom: 10px;
   text-align: center;
