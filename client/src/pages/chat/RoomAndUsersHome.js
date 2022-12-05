@@ -74,15 +74,6 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
         {roomUsers.length > 0 && <StyledUsersTitle>Users:</StyledUsersTitle>}
         <StyledUsersList>
           {roomUsers.map((user) => {
-            //most important, literally smusjhing userids together to make a room ID
-
-            //verification step... might not need this
-            // for(const currentUserRoomId of currentUser.rooms) {
-            //   for(const otherUserRoomId of user.rooms){
-            //     if(currentUserRoomId === otherUserRoomId)
-            //     sharedRoomId = currentUserRoomId;
-            //   }
-            // }
 
             return (
               <li
