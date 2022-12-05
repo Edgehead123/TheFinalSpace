@@ -18,7 +18,7 @@ const Profile = () => {
     }
   }, []);
 
-  console.log("friends", friends);
+  // console.log("friends", friends);
   return (
     isAuthenticated && (
       <StyledArticle>
@@ -30,12 +30,12 @@ const Profile = () => {
         </ul>
         {friends.length >0 ? <h3>Friends</h3> : <div></div>}
         {friends &&
-          friends.map((friend) => {
+          friends.map((friend, i) => {
             return (
-              <>
+              <li key={i}>
                 {/* TODO add more stuff */}
-                <p>{friend.name}</p>
-              </>
+                <p >{friend.name}</p>
+              </li>
             );
           })}
         <SignIn />
