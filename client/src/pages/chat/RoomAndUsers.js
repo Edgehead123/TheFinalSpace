@@ -108,7 +108,7 @@ const RoomAndUsers = ({ socket, username, setUsername, room, setRoom }) => {
               {currentUser.chat && user.username === username && (
                 <button
                   onClick={() => {
-                    console.log("here");
+                    // console.log("here");
                     const sharedRoomId = `${currentUser._id}${currentUser.chat[0]}`;
                     setNextRoom(sharedRoomId);
                   }}
