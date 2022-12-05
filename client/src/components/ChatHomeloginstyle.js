@@ -8,10 +8,7 @@ import { CharContext } from "../CharContext";
 const Chat = ({ username, setUsername, room, setRoom, socket }) => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0();
-  const {currentUser} = useContext(CharContext)
-  // const [userName, setUserName] = useState("");
-  // const [room, setRoom] = useState("");
-  // const [showChat, setShowChat] = useState(false);
+  const { currentUser } = useContext(CharContext);
 
   // const socket = io.connect("http://localhost:8000");
 
@@ -20,29 +17,28 @@ const Chat = ({ username, setUsername, room, setRoom, socket }) => {
     if (room !== "" && username !== "") {
       //if yes emit a socket event to server
       // socket.emit("join_room", room);
-      socket.emit("join_room", { username, room , userId:currentUser._id});
+      socket.emit("join_room", { username, room, userId: currentUser._id });
     }
     // setUsername(user.nickname);
     navigate("/chatroom", { replace: true });
-    ///chatRoom ?
     // console.log("username",user.nickname);
   };
   return (
     <StyledContainer>
       <StyledFormContainer>
-        <h1>{`<>DevRooms</>`}</h1>
+        <h1>{`ROOMS`}</h1>
         <StyledInput
           placeholder="Screen Name..."
           onChange={(e) => setUsername(e.target.value)}
-          />
+        />
 
         <StyledSelect onChange={(e) => setRoom(e.target.value)}>
           <option>-- Select Room --</option>
-          <option value="general">general</option>
-          <option value="javascript">JavaScript</option>
-          <option value="node">Node</option>
-          <option value="express">Express</option>
-          <option value="react">React</option>
+          <option value="SPACE">SPACE</option>
+          <option value="EARTH">EARTH</option>
+          <option value="VENTREXIA">VENTREXIA</option>
+          <option value="INFINITY GUARD OUTPOST">INFINITY GUARD OUTPOST</option>
+          <option value="FINAL SPACE">FINAL SPACE</option>
         </StyledSelect>
         {/* {console.log("room", room)} */}
         <StyledButton style={{ width: "100%" }} onClick={joinRoom}>

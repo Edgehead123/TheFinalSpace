@@ -159,17 +159,3 @@ app.get("*", (req, res) => {
 server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-{
-  //just comments
-  //from Rony from kickoff, delete as final touches
-  // .get("/hello", (req, res) => {
-  //   res.status(200).json({ status: 200, message: "Hello World!" });
-  // })
-}
-
-// patch to add friend?
-//patch to delete friend?
-//add to add user
-//delete probably not a requirement for this proj, but delete user
-//chat history in session storeage? stretch goal?

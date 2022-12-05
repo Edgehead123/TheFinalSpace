@@ -54,6 +54,7 @@ const UsersProfile = () => {
       <div>User: {userData?.nickname}</div>
 
       <button onClick={addFriendHanlder}>Add Friend</button>
+      <button onClick={addFriendHanlder}>Remove Friend</button>
 
       {/* <ul>
         {Object.keys(userData).map((objKey, i) => (

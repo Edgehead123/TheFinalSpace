@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
-
   const [friends, setFriends] = useState([]);
-
   const currentUser = JSON.parse(window.sessionStorage.getItem("user"));
 
   useEffect(() => {
@@ -18,6 +16,8 @@ const Profile = () => {
         });
     }
   }, []);
+
+
 
   // console.log("friends", friends);
   return (
