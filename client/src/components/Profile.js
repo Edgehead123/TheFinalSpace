@@ -18,6 +18,26 @@ const Profile = () => {
     }
   }, []);
 
+  const removeFriendHandler = () => {
+    fetch(`/user/add-friend/${currentUser._id}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      //user trying to be added as friend, from body
+      // body: JSON.stringify({
+      //   friendId: profileId,
+      // }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          window.alert("friend removed !");
+        }
+      });
+  };
+
   // console.log("friends", friends);
   return (
     isAuthenticated && (
@@ -35,6 +55,7 @@ const Profile = () => {
               <li key={i}>
                 {/* TODO add more stuff */}
                 <p >{friend.name}</p>
+                <button onClick={removeFriendHandler}>Remove friend</button>
               </li>
             );
           })}

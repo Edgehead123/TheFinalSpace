@@ -32,6 +32,7 @@ const {
   handleAddFriend,
   handleGetFriends,
   handleChat,
+  handleRemoveFriends
 } = require("./handlers");
 const { response } = require("express");
 
@@ -145,6 +146,7 @@ app.post("/user", handleUser);
 //gets user based on _id in mongo
 app.get("/user/:id", getUserHanlder);
 app.post("/user/add-friend/:id", handleAddFriend);
+app.patch("/user/add-friend/:id", handleRemoveFriends);
 app.get("/user/get-friends/:id", handleGetFriends);
 app.post("/user/chat", handleChat);
 

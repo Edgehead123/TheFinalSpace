@@ -172,6 +172,29 @@ const handleAddFriend = async (req, res) => {
     client.close();
   }
 };
+const handleRemoveFriends = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const userId = req.params.id;
+  try {
+    await client.connect();
+    const db = client.db("thefinalspace");
+    //find the _id that matches UserId
+    const user = await db.collection("users").findOne({ _id: userId });
+
+    await db
+      .collection("users")
+      .updateOne(
+        { _id: userId },
+        { $pop:  {friends: -1}  }
+      );
+    return res.status(200).json({ status: 200, message: "friend removed" });
+  } catch (err) {
+    console.error(err);
+  } finally {
+    client.close();
+  }
+};
+
 const handleGetFriends = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const userId = req.params.id; // the current user ID the person logged in
@@ -233,4 +256,5 @@ module.exports = {
   handleAddFriend,
   handleGetFriends,
   handleChat,
+  handleRemoveFriends,
 };
