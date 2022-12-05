@@ -18,9 +18,7 @@ const Profile = () => {
     }
   }, []);
 
-
-
-  // console.log("friends", friends);
+  console.log("friends", friends);
   return (
     isAuthenticated && (
       <StyledArticle>
@@ -30,7 +28,7 @@ const Profile = () => {
           User Name: {user?.nickname}
           {/* {Object.keys(user).map((objKey, i) => <li key={i}>{objKey}: {user[objKey]} </li>)} */}
         </ul>
-        <h3>Friends</h3>
+        {friends.length >0 ? <h3>Friends</h3> : <div></div>}
         {friends &&
           friends.map((friend) => {
             return (
@@ -40,35 +38,35 @@ const Profile = () => {
               </>
             );
           })}
-          <SignIn />
+        <SignIn />
       </StyledArticle>
       //google article
     )
   );
 };
 
-const StyledArticle=styled.article`
-/* border: 1px green solid; */
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-margin-top: 10vh;
-img {
-  width: 5vw;
-}
-h1 {
-  color: purple;
-}
-h3 {
-  color: purple;
-}
-ul {
-  color: purple;
-}
-p {
-  color: purple;
-}
+const StyledArticle = styled.article`
+  /* border: 1px green solid; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10vh;
+  img {
+    width: 5vw;
+  }
+  h1 {
+    color: purple;
+  }
+  h3 {
+    color: purple;
+  }
+  ul {
+    color: purple;
+  }
+  p {
+    color: purple;
+  }
 `;
 
 export default Profile;
