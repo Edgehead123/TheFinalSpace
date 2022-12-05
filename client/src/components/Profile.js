@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
+import SignIn from "./SignIn";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -39,6 +40,7 @@ const Profile = () => {
               </>
             );
           })}
+          <SignIn />
       </StyledArticle>
       //google article
     )
@@ -46,7 +48,7 @@ const Profile = () => {
 };
 
 const StyledArticle=styled.article`
-border: 1px green solid;
+/* border: 1px green solid; */
 display: flex;
 justify-content: center;
 align-items: center;

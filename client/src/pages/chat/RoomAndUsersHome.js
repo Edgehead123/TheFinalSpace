@@ -61,11 +61,11 @@ const RoomandUsersHome = ({ socket, username, setUsername, room, setRoom }) => {
       <div>
         <select onChange={(e) => setNextRoom(e.target.value)}>
           <option>-- Select Room --</option>
-          <option value="general">general</option>
-          <option value="javascript">JavaScript</option>
-          <option value="node">Node</option>
-          <option value="express">Express</option>
-          <option value="react">React</option>
+          <option value="SPACE">SPACE</option>
+          <option value="EARTH">EARTH</option>
+          <option value="VENTREXIA">VENTREXIA</option>
+          <option value="INFINITY GUARD OUTPOST">INFINITY GUARD OUTPOST</option>
+          <option value="FINAL SPACE">FINAL SPACE</option>
         </select>
         {/* {console.log("room", room)} */}
         <button onClick={changeRoom}>Change</button>

@@ -14,11 +14,11 @@ const Header = () => {
         ) : (
           <NavLink to="/signin">CHAT</NavLink>
         )}
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <NavLink to="/signin">LOG OUT</NavLink>
         ) : (
           <NavLink to="/signin">LOG IN</NavLink>
-        )}
+        )} */}
         {isAuthenticated ? (
           <NavLink to="/profile">PROFILE</NavLink>
         ) : (
